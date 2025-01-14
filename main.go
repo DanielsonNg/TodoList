@@ -9,15 +9,11 @@ import (
 	"github.com/joho/godotenv"
 )
 
-type Todo struct {
-	ID        int    `json: "id"`
-	Completed bool   `json: "completed"`
-	Body      string `json: "body"`
-}
-
 func main() {
+	fmt.Println("helos")
 	app := fiber.New()
 
+<<<<<<< HEAD
 	err := godotenv.Load(".env")
 	if err != nil {
 		log.Fatal("Error loading .env file")
@@ -82,6 +78,10 @@ func main() {
 			}
 		}
 		return c.Status(404).JSON(fiber.Map{"error": "Todo not found"})
+=======
+	app.Get("/", func(c *fiber.Ctx) error {
+		return c.Status(200).JSON(fiber.Map{"msg": "hello world"})
+>>>>>>> parent of e84b157 (CRUD with no memory)
 	})
 
 	log.Fatal(app.Listen(":" + PORT))

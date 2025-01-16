@@ -1,4 +1,4 @@
-module github.com/DanielsonNg/TodoList
+module github.com/DanielsonNg/TodoList/Backend
 
 go 1.23.4
 

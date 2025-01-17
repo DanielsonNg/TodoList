@@ -1,12 +1,18 @@
-import { useState } from 'react'
-import { Button } from '@chakra-ui/react'
+import { Container, Stack } from '@chakra-ui/react'
+import Navbar from './Components/Navbar'
+import TodoForm from './Components/Todoform'
+import Todolist from './Components/Todolist'
 
 function App() {
 
   return (
-    <>
-      <Button> Helo</Button>
-    </>
+    <Stack h="100vh">
+      <Navbar />
+      <Container>
+        <TodoForm />
+        <Todolist />
+      </Container>
+    </Stack>
   )
 }
 

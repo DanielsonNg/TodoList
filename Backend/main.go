@@ -16,6 +16,7 @@ import (
 	"os"
 
 	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v2/middleware/cors"
 	"github.com/joho/godotenv"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
@@ -107,9 +108,9 @@ import (
 // WITH DB
 
 type Todo struct {
-	_ID       primitive.ObjectID `json: "_id, omitempty" bson:"_id, omitempty`
-	Completed bool               `json: "completed"`
-	Body      string             `json: "body"`
+	ID        primitive.ObjectID `json:"_id,omitempty" bson:"_id,omitempty"`
+	Completed bool               `json:"completed"`
+	Body      string             `json:"body"`
 }
 
 var collection *mongo.Collection
@@ -142,6 +143,11 @@ func main() {
 	collection = client.Database("golang_db").Collection("todos")
 
 	app := fiber.New()
+
+	app.Use(cors.New(cors.Config{
+		AllowOrigins: "http://localhost:5173",
+		AllowHeaders: "Origin,Content-Type,Accept",
+	}))
 
 	app.Get("/api/todos", getTodos)
 	app.Post("/api/todos", createTodo)
@@ -195,7 +201,7 @@ func createTodo(c *fiber.Ctx) error {
 		return err
 	}
 
-	todo._ID = insertResult.InsertedID.(primitive.ObjectID)
+	todo.ID = insertResult.InsertedID.(primitive.ObjectID)
 
 	return c.Status(201).JSON(todo)
 }
